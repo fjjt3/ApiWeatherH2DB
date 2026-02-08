@@ -1,114 +1,158 @@
-# Providers Microservice Demo
+# City Weather
 
-This is a simple implementation for a Restful Microservice based on Spring Boot to manage clients and providers
-relationship.
+Spring Boot application for **city weather data**. Weather is fetched from the [Open-Meteo](https://open-meteo.com/) API and stored in an H2 in-memory database.
 
 ## Features
-- Simple Restful endpoint to retrieve client´s providers given a Client´s id 
-- H2 in-memory database with pre-loading data 
-- Spring Boot, Sprint Data.
 
-## Tech Stack
-- ***Spring Boot***: Framework for building the application.
-- ***H2 Database***: In-memory database for development.
-- ***Maven***: Build and dependency management tool.
-- ***Java***: (version: 17) - Programming language.
-- ***JUnit 5***: Testing framework.
-- ***Mockito***: Mocking Tool.
+- **Weather API integration**: Fetches current weather from Open-Meteo for Málaga, Milano, and Cortina d'Ampezzo.
+- **H2 database**: Stores weather records in the `city_weather` table.
+- **REST API**: Endpoints to refresh weather data, list stored records, and query by city.
+- **Swagger UI**: Interactive API documentation.
+- **H2 Console**: Web UI to inspect the database.
 
-## Getting Started
+## Tech stack
 
-### Prerequisites
-- Java 17 or later installed. [Download Java here.](https://adoptopenjdk.net/)
-- Maven installed. [Download Maven here.](https://maven.apache.org/download.cgi)
+- **Java 17**
+- **Spring Boot 3** (Web, Data JPA)
+- **H2** (in-memory)
+- **Open-Meteo API** (no API key required)
+- **Maven**
+- **SpringDoc OpenAPI** (Swagger)
+- **JUnit 5 & Mockito** (tests)
 
-Verify installations:
+## Prerequisites
+
+- **Java 17** or later — [Adoptium](https://adoptium.net/)
+- **Maven 3.6+** — [Maven](https://maven.apache.org/download.cgi) (or use the included wrapper `mvnw` / `mvnw.cmd`)
+
+Check versions:
+
 ```bash
 java -version
 mvn -version
 ```
 
-### Installation
+## How to run
 
-Clone the repository
+### 1. Clone and go to the project
+
 ```bash
-  git clone https://github.com/fjjt3/demo-proveedores.git
-  cd demo-proveedores
-  ```
-Build the application
+git clone <repository-url>
+cd demo-proveedores
+```
+
+### 2. Build
+
 ```bash
 mvn clean package
 ```
 
-Start the application
+Or with the wrapper (no Maven installed):
+
+- **Windows:** `.\mvnw.cmd clean package`
+- **Linux/macOS:** `./mvnw clean package`
+
+### 3. Start the application
+
+**Option A – Maven:**
 
 ```bash
-java -jar target/demo-proveedores-0.0.1-SNAPSHOT.jar
 mvn spring-boot:run
 ```
 
-## Running the Application
+**Option B – Maven wrapper (Windows):**
 
-- Default URL: [http://localhost:8080](http://localhost:8080)
-- Swagger Console: http://localhost:8080/swagger-ui/index.html
-- H2 Console: [http://localhost:8080/h2-console](http://localhost:8080/h2-console)
-    - Username: `sa`
-    - Password: (leave blank)
-
-
-### Configuration
-
-#### Application Properties
-The application can be configured using the `application.properties` file.
-
-#### Example `application.properties`:
-```properties
-# JPA Connectivity
-spring.datasource.url=jdbc:h2:mem:testdb
-spring.datasource.driverClassName=org.h2.Driver
-spring.datasource.initialization-mode=always
-spring.jpa.defer-datasource-initialization=true
-
-# Enables H2 console
-spring.h2.console.enabled=true
-spring.datasource.username=sa
-spring.datasource.password=
-
-# Ensures the schema is generated
-spring.jpa.hibernate.ddl-auto=create-drop
-
-# Ensures `data.sql` is executed
-spring.sql.init.mode=always
-
-# Swagger Enabled
-springdoc.api-docs.enabled=true
-springdoc.swagger-ui.enabled=true
+```bash
+.\mvnw.cmd spring-boot:run
 ```
 
-##  **API Endpoints**~~~~
+**Option C – JAR:**
 
-```markdown
-## API Endpoints
-### Base URL: `http://localhost:8080`
-
-| HTTP Method | Endpoint                  | Description                      |
-|-------------|---------------------------|----------------------------------|
-| GET         | `/proveedores/{id}`       | Get providers by client ID.      |
+```bash
+java -jar target/demo-proveedores-0.0.1-SNAPSHOT.jar
 ```
 
-## Testing
+The app runs at **http://localhost:8080** (default).
 
-Unit tests are written using JUnit and Spring Boot Test, using Mockito Framework to mock
-dependencies.
-Run all tests with:
+## URLs
+
+| Resource        | URL |
+|----------------|-----|
+| Application    | http://localhost:8080 |
+| Swagger UI     | http://localhost:8080/swagger-ui/index.html |
+| H2 Console     | http://localhost:8080/h2-console |
+
+**H2 Console login**
+
+- JDBC URL: `jdbc:h2:mem:testdb`
+- User: `sa`
+- Password: *(leave empty)*
+
+## API endpoints
+
+Base path: `/clima`
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/clima/actualizar` | Fetch weather from Open-Meteo for all configured cities (Málaga, Milano, Cortina) and save to H2. |
+| `POST` | `/clima/actualizar/{nombreCiudad}` | Fetch and save weather for one city (e.g. `Málaga`, `Milano`, `Cortina`). |
+| `GET`  | `/clima` | List all weather records stored in H2. |
+| `GET`  | `/clima/ciudad/{nombreCiudad}` | List weather history for a city. |
+| `GET`  | `/clima/ciudades` | List configured city names. |
+
+## Quick test
+
+1. Start the app (see above).
+2. Load initial weather for all cities:
+   ```bash
+   curl -X POST http://localhost:8080/clima/actualizar
+   ```
+3. List stored weather:
+   ```bash
+   curl http://localhost:8080/clima
+   ```
+4. Or open Swagger: http://localhost:8080/swagger-ui/index.html and call the `/clima` endpoints from there.
+
+## Configuration
+
+Main settings in `src/main/resources/application.properties`:
+
+- **DataSource**: H2 in-memory (`jdbc:h2:mem:testdb`).
+- **JPA**: `ddl-auto=create-drop`, schema and data from `schema.sql` and `data.sql`.
+- **Open-Meteo**: Optional default timezone, e.g. `openmeteo.timezone.default=Europe/Madrid`.
+
+## Database schema
+
+Table `city_weather`:
+
+| Column       | Type     | Description        |
+|-------------|----------|--------------------|
+| id          | BIGINT   | Primary key        |
+| city_name   | VARCHAR  | City name          |
+| latitude    | DOUBLE   | Latitude           |
+| longitude   | DOUBLE   | Longitude          |
+| temperature | DOUBLE   | Temperature (°C)   |
+| humidity    | INT      | Relative humidity (%) |
+| wind_speed  | DOUBLE   | Wind speed (km/h)  |
+| query_time  | TIMESTAMP| When the data was fetched |
+| timezone    | VARCHAR  | Timezone (e.g. Europe/Madrid) |
+
+Sample data for Málaga, Milano and Cortina d'Ampezzo is loaded from `data.sql` on startup.
+
+## Tests
+
+Run all tests:
 
 ```bash
 mvn test
 ```
 
+Or with wrapper:
+
+```bash
+.\mvnw.cmd test
+```
+
 ## License
+
 This project is licensed under the [MIT License](LICENSE).
-
-## Contact
-
-GitHub: [@fjjt3](https://github.com/fjjt3) - Feel free to reach out!

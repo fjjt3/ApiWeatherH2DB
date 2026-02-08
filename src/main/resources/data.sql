@@ -1,7 +1,4 @@
--- Insert sample data into the "proveedor" table
-INSERT INTO proveedor (nombre, fecha_alta, client_id) VALUES ('Coca-cola', '2023-01-01', 5);
-INSERT INTO proveedor (nombre, fecha_alta, client_id) VALUES ('Pepsi', '2023-01-02', 5);
-INSERT INTO proveedor (nombre, fecha_alta, client_id) VALUES ('Redbull', '2023-01-03', 6);
-INSERT INTO proveedor (nombre, fecha_alta, client_id) VALUES ('Fanta', '2023-01-04', 7);
-INSERT INTO proveedor (nombre, fecha_alta, client_id) VALUES ('Casera', '2023-01-05', 8);
-INSERT INTO proveedor (nombre, fecha_alta, client_id) VALUES ('Trina', '2023-01-05', 6);
+-- Sample weather data for city_weather (Málaga, Milano, Cortina d'Ampezzo)
+INSERT INTO city_weather (city_name, latitude, longitude, temperature, humidity, wind_speed, query_time, timezone) VALUES ('Málaga', 36.72, -4.42, 18.5, 65, 12.0, CURRENT_TIMESTAMP, 'Europe/Madrid');
+INSERT INTO city_weather (city_name, latitude, longitude, temperature, humidity, wind_speed, query_time, timezone) VALUES ('Milano', 45.46, 9.19, 8.2, 72, 5.5, CURRENT_TIMESTAMP, 'Europe/Rome');
+INSERT INTO city_weather (city_name, latitude, longitude, temperature, humidity, wind_speed, query_time, timezone) VALUES ('Cortina d''Ampezzo', 46.54, 12.14, -2.0, 80, 8.0, CURRENT_TIMESTAMP, 'Europe/Rome');
