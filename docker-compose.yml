@@ -1,0 +1,8 @@
+services:
+  weather-api:
+    build: .
+    ports:
+      - "8080:8080"
+    container_name: weather-api-container
+    environment:
+      - JAVA_OPTS=-Xmx512m

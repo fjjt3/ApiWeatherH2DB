@@ -74,6 +74,27 @@ java -jar target/demo-proveedores-0.0.1-SNAPSHOT.jar
 
 The app runs at **http://localhost:8080** (default).
 
+### 4. Run with Docker
+
+You can also run the application using Docker Compose. This method ensures you have a consistent environment.
+
+**Prerequisites:** Docker and Docker Compose installed.
+
+1.  **Build and run:**
+    ```bash
+    docker compose up --build
+    ```
+    This command builds the Docker image using Maven and starts the container.
+
+2.  **Access the application:**
+    Open http://localhost:8080 in your browser.
+
+3.  **Stop:**
+    Press `Ctrl+C` or run:
+    ```bash
+    docker compose down
+    ```
+
 ## URLs
 
 | Resource        | URL |
