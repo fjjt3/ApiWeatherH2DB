@@ -4,6 +4,7 @@ import com.prueba_metrica.demo_proveedores.infrastructure.CiudadClimaRepository;
 import com.prueba_metrica.demo_proveedores.infrastructure.client.OpenMeteoClient;
 import com.prueba_metrica.demo_proveedores.infrastructure.client.OpenMeteoResponse;
 import com.prueba_metrica.demo_proveedores.infrastructure.entity.CiudadClima;
+import com.prueba_metrica.demo_proveedores.interfaces.exception.CityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -17,18 +18,18 @@ public class CiudadClimaService {
     private final List<CiudadConfig> ciudadesConfiguradas;
 
     public CiudadClimaService(OpenMeteoClient openMeteoClient,
-                              CiudadClimaRepository ciudadClimaRepository) {
+            CiudadClimaRepository ciudadClimaRepository) {
         this.openMeteoClient = openMeteoClient;
         this.ciudadClimaRepository = ciudadClimaRepository;
         this.ciudadesConfiguradas = List.of(
                 new CiudadConfig("Málaga", 36.72, -4.42, "Europe/Madrid"),
                 new CiudadConfig("Milano", 45.46, 9.19, "Europe/Rome"),
-                new CiudadConfig("Cortina d'Ampezzo", 46.54, 12.14, "Europe/Rome")
-        );
+                new CiudadConfig("Cortina d'Ampezzo", 46.54, 12.14, "Europe/Rome"));
     }
 
     /**
-     * Fetches current weather from Open-Meteo for all configured cities and saves to H2.
+     * Fetches current weather from Open-Meteo for all configured cities and saves
+     * to H2.
      */
     public List<CiudadClima> actualizarYGuardarClimaCiudades() {
         return ciudadesConfiguradas.stream()
@@ -37,7 +38,8 @@ public class CiudadClimaService {
     }
 
     /**
-     * Fetches and saves the weather for a city by name (must be in the configured list).
+     * Fetches and saves the weather for a city by name (must be in the configured
+     * list).
      * Accepts "Cortina" as an alias for "Cortina d'Ampezzo".
      */
     public CiudadClima actualizarYGuardarPorCiudad(String nombreCiudad) {
@@ -46,7 +48,8 @@ public class CiudadClimaService {
                 .filter(c -> c.getNombre().equalsIgnoreCase(nombre))
                 .findFirst()
                 .map(this::fetchAndSave)
-                .orElseThrow(() -> new IllegalArgumentException("City not configured: " + nombreCiudad));
+                .orElseThrow(() -> new CityNotFoundException(
+                        "City not configured: " + nombreCiudad));
     }
 
     private static String normalizarNombreCiudad(String nombre) {
@@ -60,8 +63,7 @@ public class CiudadClimaService {
         OpenMeteoResponse response = openMeteoClient.getCurrentWeather(
                 config.getLatitud(),
                 config.getLongitud(),
-                config.getTimezone()
-        );
+                config.getTimezone());
         if (response == null || response.getCurrent() == null) {
             throw new IllegalStateException("No Open-Meteo data for " + config.getNombre());
         }
@@ -74,8 +76,7 @@ public class CiudadClimaService {
                 current.getRelativeHumidity2m(),
                 current.getWindSpeed10m(),
                 Instant.now(),
-                response.getTimezone()
-        );
+                response.getTimezone());
         return ciudadClimaRepository.save(entity);
     }
 

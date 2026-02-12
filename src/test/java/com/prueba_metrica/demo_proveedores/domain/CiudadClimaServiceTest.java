@@ -4,6 +4,7 @@ import com.prueba_metrica.demo_proveedores.infrastructure.CiudadClimaRepository;
 import com.prueba_metrica.demo_proveedores.infrastructure.client.OpenMeteoClient;
 import com.prueba_metrica.demo_proveedores.infrastructure.client.OpenMeteoResponse;
 import com.prueba_metrica.demo_proveedores.infrastructure.entity.CiudadClima;
+import com.prueba_metrica.demo_proveedores.interfaces.exception.CityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -62,9 +63,9 @@ class CiudadClimaServiceTest {
     }
 
     @Test
-    void actualizarYGuardarPorCiudad_unknownCity_throwsIllegalArgumentException() {
+    void actualizarYGuardarPorCiudad_unknownCity_throwsCityNotFoundException() {
         assertThatThrownBy(() -> ciudadClimaService.actualizarYGuardarPorCiudad("UnknownCity"))
-                .isInstanceOf(IllegalArgumentException.class)
+                .isInstanceOf(CityNotFoundException.class)
                 .hasMessageContaining("City not configured");
     }
 
@@ -94,7 +95,8 @@ class CiudadClimaServiceTest {
         verify(ciudadClimaRepository, times(3)).save(any(CiudadClima.class));
     }
 
-    private static OpenMeteoResponse createOpenMeteoResponse(double lat, double lon, double temp, int humidity, double wind, String tz) {
+    private static OpenMeteoResponse createOpenMeteoResponse(double lat, double lon, double temp, int humidity,
+            double wind, String tz) {
         OpenMeteoResponse response = new OpenMeteoResponse();
         response.setLatitude(lat);
         response.setLongitude(lon);
