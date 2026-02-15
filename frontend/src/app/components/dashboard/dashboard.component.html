@@ -1,0 +1,62 @@
+<div class="container py-5">
+    <!-- Header -->
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold mb-3">
+            <i class="bi bi-cloud-sun-fill text-primary"></i>
+            Dashboard del Clima
+        </h1>
+        <p class="lead text-muted">
+            Datos meteorológicos en tiempo real de ciudades europeas
+        </p>
+    </div>
+
+    <!-- Refresh Button -->
+    <div class="text-center mb-4">
+        <button class="btn btn-primary btn-lg px-5 shadow" (click)="refreshWeather()" [disabled]="loading">
+            <span *ngIf="!loading">
+                <i class="bi bi-arrow-clockwise me-2"></i>
+                Actualizar Datos
+            </span>
+            <span *ngIf="loading">
+                <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                Actualizando...
+            </span>
+        </button>
+    </div>
+
+    <!-- Success Message -->
+    <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show mx-auto"
+        style="max-width: 600px;" role="alert">
+        <i class="bi bi-check-circle-fill me-2"></i>
+        {{ successMessage }}
+    </div>
+
+    <!-- Error Message -->
+    <div *ngIf="error" class="alert alert-danger alert-dismissible fade show mx-auto" style="max-width: 600px;"
+        role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+        {{ error }}
+        <button type="button" class="btn-close" (click)="error = null" aria-label="Close"></button>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div *ngIf="loading && !weatherData.size" class="text-center py-5">
+        <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+            <span class="visually-hidden">Cargando...</span>
+        </div>
+    </div>
+
+    <!-- Weather Cards Grid -->
+    <div class="row g-4" *ngIf="!loading || weatherData.size > 0">
+        <div class="col-12 col-md-6 col-lg-4" *ngFor="let city of cities">
+            <app-weather-card [city]="city" [weather]="getWeatherForCity(city)">
+            </app-weather-card>
+        </div>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="!loading && cities.length === 0" class="text-center py-5">
+        <i class="bi bi-cloud-slash display-1 text-muted"></i>
+        <p class="mt-3 text-muted">No hay ciudades configuradas</p>
+    </div>
+</div>

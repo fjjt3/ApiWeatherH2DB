@@ -1,0 +1,59 @@
+.weather-card {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  border-radius: 10px;
+  border: none;
+}
+
+.weather-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15) !important;
+}
+
+.temperature-display {
+  text-align: center;
+  padding: 15px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.temp-cold {
+  color: #0d6efd;
+}
+
+.temp-cold.temperature-display {
+  background: linear-gradient(135deg, #e0f7ff 0%, #a7d8f0 100%);
+}
+
+.temp-moderate {
+  color: #198754;
+}
+
+.temp-moderate.temperature-display {
+  background: linear-gradient(135deg, #e8f5e9 0%, #a5d6a7 100%);
+}
+
+.temp-hot {
+  color: #fd7e14;
+}
+
+.temp-hot.temperature-display {
+  background: linear-gradient(135deg, #fff3e0 0%, #ffcc80 100%);
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+}
+
+.card-title i {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
