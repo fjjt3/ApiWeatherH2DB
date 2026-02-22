@@ -8,7 +8,7 @@ Esta guía te ayudará a subir tu aplicación a **Render.com** de forma gratuita
 
 ## Paso 2: Crear el Backend en Render
 1. Ve a [dashboard.render.com](https://dashboard.render.com/) e inicia sesión con GitHub.
-2. Haz clic en **New +** > **Web Service**.
+2. Haz clic en **New +** > **Web Service**. 
 3. Selecciona tu repositorio de GitHub.
 4. Configura el Web Service del Backend:
    - **Name**: `weather-api-backend` (o el que quieras).

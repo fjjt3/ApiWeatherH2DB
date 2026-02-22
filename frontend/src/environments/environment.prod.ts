@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl: 'https://YOUR-BACKEND-URL.onrender.com/clima' // Replace with your Render backend URL
+    apiUrl: 'https://apiweatherh2db.onrender.com/clima'
 };
