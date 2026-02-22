@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl: 'http://backend:8080/clima'
+    apiUrl: 'https://YOUR-BACKEND-URL.onrender.com/clima' // Replace with your Render backend URL
 };

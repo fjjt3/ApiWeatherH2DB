@@ -14,10 +14,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/clima/**")
-                .allowedOrigins(
-                        "http://localhost:4200",        // Angular dev server
-                        "http://frontend:80"            // Docker frontend container
-                )
+                .allowedOrigins("*")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(false);
