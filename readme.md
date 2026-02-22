@@ -7,15 +7,9 @@ Full-stack application for **city weather data**. Weather is fetched from the [O
 ```
 ApiWeatherH2DB/
 ├── backend/              # Spring Boot API
-│   ├── src/
-│   ├── pom.xml
-│   └── Dockerfile
 ├── frontend/             # Angular application
-│   ├── src/
-│   ├── package.json
-│   ├── Dockerfile
-│   └── nginx.conf
-└── docker-compose.yml    # Orchestrates both services
+├── docker-compose.yml    # Orchestrates both services
+└── DEPLOYMENT.md         # Guide for Cloud Deployment (Render)
 ```
 
 ## Features
@@ -56,6 +50,7 @@ ApiWeatherH2DB/
 ### DevOps
 - **Docker** & **Docker Compose**
 - **Nginx** (frontend production server)
+- **Render** (Cloud Hosting)
 
 ## Prerequisites
 
@@ -116,6 +111,18 @@ docker compose up --build
 
 - **Frontend**: http://localhost:4200
 - **Backend API**: http://localhost:8080
+
+---
+
+## ☁️ Cloud Deployment (Render)
+
+The application is prepared for deployment on **Render.com**.
+
+For step-by-step instructions on how to deploy this full-stack application to the cloud for free, please refer to:
+
+👉 **[DEPLOYMENT.md](./DEPLOYMENT.md)**
+
+---
 - **Swagger UI**: http://localhost:8080/swagger-ui/index.html
 - **H2 Console**: http://localhost:8080/h2-console
 
@@ -249,9 +256,9 @@ ng serve
 ```
 
 ### CORS errors in browser
-Make sure `WebConfig.java` in the backend has the correct origins:
+Make sure `WebConfig.java` in the backend has the correct origins (use `*` for public cloud deployment):
 ```java
-.allowedOrigins("http://localhost:4200", "http://frontend:80")
+.allowedOrigins("*")
 ```
 
 ### Docker build fails
