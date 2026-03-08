@@ -1,0 +1,20 @@
+
+> frontend@0.0.0 build
+> ng build
+
+- Generating browser application bundles (phase: setup)...
+Ô£ö Browser application bundle generation complete.
+Ô£ö Browser application bundle generation complete.
+
+Error: src/app/components/weather-card/weather-card.component.html:25:1 - error NG5002: Unexpected closing tag "div". It may happen when the tag has already been closed by another tag. For more info see https://www.w3.org/TR/html5/syntax.html#closing-elements-that-have-implied-end-tags
+
+25 </div>
+   ~~~~~~
+
+  src/app/components/weather-card/weather-card.component.ts:11:16
+    11   templateUrl: './weather-card.component.html',
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component WeatherCardComponent.
+
+
+

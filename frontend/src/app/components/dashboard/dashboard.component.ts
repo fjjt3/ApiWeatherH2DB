@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { WeatherCardComponent } from '../weather-card/weather-card.component';
 import { WeatherService } from '../../services/weather.service';
 import { CiudadClima } from '../../models/ciudad-clima.model';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, WeatherCardComponent],
+  imports: [CommonModule, WeatherCardComponent, TranslateModule],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
@@ -18,7 +19,10 @@ export class DashboardComponent implements OnInit {
   error: string | null = null;
   successMessage: string | null = null;
 
-  constructor(private weatherService: WeatherService) { }
+  constructor(
+    private weatherService: WeatherService,
+    private translate: TranslateService
+  ) { }
 
   ngOnInit(): void {
     this.loadCities();
@@ -59,7 +63,7 @@ export class DashboardComponent implements OnInit {
         this.loading = false;
       },
       error: (err) => {
-        this.error = 'Error al cargar los datos del clima';
+        this.error = this.translate.instant('DASHBOARD.ERROR_MSG');
         this.loading = false;
         console.error('Error:', err);
       }
@@ -81,7 +85,7 @@ export class DashboardComponent implements OnInit {
           this.weatherData.set(weather.nombreCiudad, weather);
         });
         this.loading = false;
-        this.successMessage = '¡Datos actualizados correctamente!';
+        this.successMessage = this.translate.instant('DASHBOARD.SUCCESS_MSG');
 
         // Clear success message after 3 seconds
         setTimeout(() => {
@@ -89,7 +93,7 @@ export class DashboardComponent implements OnInit {
         }, 3000);
       },
       error: (err) => {
-        this.error = 'Error al actualizar los datos del clima';
+        this.error = this.translate.instant('DASHBOARD.ERROR_MSG');
         this.loading = false;
         console.error('Error:', err);
       }

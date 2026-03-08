@@ -1,0 +1,25 @@
+{
+    "APP": {
+        "TITLE": "Weather Dashboard"
+    },
+    "HEADER": {
+        "LANGUAGE": "Language"
+    },
+    "DASHBOARD": {
+        "TITLE": "Weather Dashboard",
+        "SUBTITLE": "Real-time weather data for cities",
+        "REFRESH_BTN": "Refresh Data",
+        "REFRESHING_BTN": "Refreshing...",
+        "SUCCESS_MSG": "Data updated successfully!",
+        "ERROR_MSG": "Error loading weather data",
+        "LOADING": "Loading...",
+        "EMPTY_STATE_MSG": "No configured cities found"
+    },
+    "CARD": {
+        "LATITUDE": "Latitude",
+        "LONGITUDE": "Longitude",
+        "HUMIDITY": "Humidity",
+        "WIND": "Wind",
+        "LAST_UPDATED": "Last updated"
+    }
+}

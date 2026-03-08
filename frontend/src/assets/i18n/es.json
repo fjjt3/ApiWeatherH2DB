@@ -1,0 +1,25 @@
+{
+    "APP": {
+        "TITLE": "Dashboard del Clima"
+    },
+    "HEADER": {
+        "LANGUAGE": "Idioma"
+    },
+    "DASHBOARD": {
+        "TITLE": "Dashboard del Clima",
+        "SUBTITLE": "Datos meteorológicos en tiempo real de ciudades",
+        "REFRESH_BTN": "Actualizar Datos",
+        "REFRESHING_BTN": "Actualizando...",
+        "SUCCESS_MSG": "¡Datos actualizados correctamente!",
+        "ERROR_MSG": "Error al cargar los datos del clima",
+        "LOADING": "Cargando...",
+        "EMPTY_STATE_MSG": "No hay ciudades configuradas"
+    },
+    "CARD": {
+        "LATITUDE": "Latitud",
+        "LONGITUDE": "Longitud",
+        "HUMIDITY": "Humedad",
+        "WIND": "Viento",
+        "LAST_UPDATED": "Última actualización"
+    }
+}

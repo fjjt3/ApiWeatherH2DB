@@ -1,0 +1,25 @@
+{
+    "APP": {
+        "TITLE": "לוח המחוונים של מזג האוויר"
+    },
+    "HEADER": {
+        "LANGUAGE": "שפה"
+    },
+    "DASHBOARD": {
+        "TITLE": "לוח מזג אוויר",
+        "SUBTITLE": "נתוני מזג אוויר בזמן אמת עבור ערים",
+        "REFRESH_BTN": "רענן נתונים",
+        "REFRESHING_BTN": "מרענן...",
+        "SUCCESS_MSG": "הנתונים עודכנו בהצלחה!",
+        "ERROR_MSG": "שגיאה בטעינת נתוני מזג אוויר",
+        "LOADING": "טוען...",
+        "EMPTY_STATE_MSG": "לא נמצאו ערים מוגדרות"
+    },
+    "CARD": {
+        "LATITUDE": "קו רוחב",
+        "LONGITUDE": "קו אורך",
+        "HUMIDITY": "לחות",
+        "WIND": "רוח",
+        "LAST_UPDATED": "עודכן לאחרונה"
+    }
+}

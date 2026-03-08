@@ -4,42 +4,46 @@
       <span>{{ city }}</span>
       <i class="bi {{ getWeatherIcon() }} fs-2" [ngClass]="getTemperatureClass()"></i>
     </h5>
-    
+
     <div *ngIf="weather; else noData">
       <div class="temperature-display my-3" [ngClass]="getTemperatureClass()">
         <h2 class="display-4 mb-0">{{ weather.temperatura }}°C</h2>
       </div>
-      
-      <div class="weather-details">
-        <div class="detail-item mb-2">
-          <i class="bi bi-droplet-fill text-primary"></i>
-          <span class="ms-2"><strong>Humedad:</strong> {{ weather.humedad }}%</span>
+
+      <div class="mb-3 d-flex justify-content-between text-muted">
+        <small>
+          <i class="bi bi-geo-alt me-1"></i>
+          {{ 'CARD.LATITUDE' | translate }}: {{ weather.latitud | number:'1.2-2' }}°
+        </small>
+        <small>
+          <i class="bi bi-geo-alt me-1"></i>
+          {{ 'CARD.LONGITUDE' | translate }}: {{ weather.longitud | number:'1.2-2' }}°
+        </small>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+          <i class="bi bi-moisture text-primary me-2"></i>
+          <span class="text-muted">{{ 'CARD.HUMIDITY' | translate }}: </span>
+          <span class="fw-bold">{{ weather.humedad }}%</span>
         </div>
-        
-        <div class="detail-item mb-2">
-          <i class="bi bi-wind text-info"></i>
-          <span class="ms-2"><strong>Viento:</strong> {{ weather.velocidadViento }} km/h</span>
-        </div>
-        
-        <div class="detail-item mb-2">
-          <i class="bi bi-geo-alt-fill text-secondary"></i>
-          <span class="ms-2 small">{{ weather.latitud.toFixed(2) }}, {{ weather.longitud.toFixed(2) }}</span>
+        <div>
+          <i class="bi bi-wind text-info me-2"></i>
+          <span class="text-muted">{{ 'CARD.WIND' | translate }}: </span>
+          <span class="fw-bold">{{ weather.velocidadViento }} km/h</span>
         </div>
       </div>
-      
-      <hr class="my-3">
-      
-      <div class="text-muted small">
-        <i class="bi bi-clock"></i>
-        <span class="ms-2">Última actualización:</span>
-        <div class="mt-1">{{ formatDate(weather.fechaConsulta) }}</div>
+
+      <div class="text-center mt-3 pt-3 border-top text-muted small">
+        <i class="bi bi-clock-history me-1"></i>
+        {{ 'CARD.LAST_UPDATED' | translate }}: {{ formatDate(weather.fechaConsulta || '') }}
       </div>
     </div>
-    
+
     <ng-template #noData>
       <div class="text-center text-muted py-4">
         <i class="bi bi-cloud-slash fs-1"></i>
-        <p class="mt-2">No hay datos disponibles</p>
+        <p class="mt-2">{{ 'DASHBOARD.EMPTY_STATE_MSG' | translate }}</p>
       </div>
     </ng-template>
   </div>

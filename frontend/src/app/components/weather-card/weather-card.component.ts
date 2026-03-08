@@ -2,16 +2,20 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CiudadClima } from '../../models/ciudad-clima.model';
 
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-weather-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslateModule],
   templateUrl: './weather-card.component.html',
   styleUrls: ['./weather-card.component.css']
 })
 export class WeatherCardComponent {
   @Input() city: string = '';
   @Input() weather: CiudadClima | null = null;
+
+  constructor(private translate: TranslateService) { }
 
   /**
    * Get temperature color class based on temperature value
@@ -48,7 +52,16 @@ export class WeatherCardComponent {
   formatDate(dateString: string): string {
     if (!dateString) return 'N/A';
     const date = new Date(dateString);
-    return date.toLocaleString('es-ES', {
+    const lang = this.translate.currentLang || 'es';
+    // Map internal language codes to actual locales needed
+    const locales: { [key: string]: string } = {
+      'es': 'es-ES',
+      'en': 'en-US',
+      'fa': 'fa-IR',
+      'he': 'he-IL'
+    };
+
+    return date.toLocaleString(locales[lang] || 'es-ES', {
       day: '2-digit',
       month: '2-digit',
       year: 'numeric',

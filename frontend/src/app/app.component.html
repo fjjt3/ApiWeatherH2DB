@@ -1,1 +1,26 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+  <div class="container-fluid px-4 pe-lg-auto pe-4">
+    <span class="navbar-brand">
+      <i class="bi bi-globe-americas me-2"></i>
+      {{ 'APP.TITLE' | translate }}
+    </span>
+    <div class="d-flex align-items-center header-right">
+      <div class="dropdown">
+        <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="bi bi-translate me-2"></i>
+          {{ 'HEADER.LANGUAGE' | translate }}
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+          <li *ngFor="let lang of languages">
+            <button class="dropdown-item d-flex align-items-center" (click)="switchLanguage(lang.code)">
+              <span class="me-2 fs-5">{{ lang.flag }}</span>
+              <span>{{ lang.name }}</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
 <app-dashboard></app-dashboard>
