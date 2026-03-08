@@ -59,7 +59,7 @@ class CiudadClimaServiceTest {
     void listarNombresCiudadesConfiguradas_returnsMalagaMilanoCortina() {
         List<String> result = ciudadClimaService.listarNombresCiudadesConfiguradas();
 
-        assertThat(result).containsExactly("Málaga", "Milano", "Cortina d'Ampezzo");
+        assertThat(result).containsExactly("Málaga", "Milano", "Cortina d'Ampezzo", "Los Villares en Jaén");
     }
 
     @Test
@@ -91,8 +91,8 @@ class CiudadClimaServiceTest {
 
         List<CiudadClima> result = ciudadClimaService.actualizarYGuardarClimaCiudades();
 
-        assertThat(result).hasSize(3);
-        verify(ciudadClimaRepository, times(3)).save(any(CiudadClima.class));
+        assertThat(result).hasSize(4);
+        verify(ciudadClimaRepository, times(4)).save(any(CiudadClima.class));
     }
 
     private static OpenMeteoResponse createOpenMeteoResponse(double lat, double lon, double temp, int humidity,

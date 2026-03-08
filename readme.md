@@ -101,18 +101,36 @@ Frontend will open automatically at **http://localhost:4200**
 
 ---
 
-## 🐳 Production Mode (Full Docker Stack)
+## 🐳 Run with Docker (Full Stack)
 
-Run both frontend and backend in containers:
+You can run the entire application (frontend + backend + database) using Docker Compose. This is the fastest way to run the project without having to install Java or Node on your local machine.
+
+### 1. Start the application
+To build the images and start the containers, run from the root of the project (where the `docker-compose.yml` file is located):
 
 ```bash
-docker compose up --build
+docker-compose up --build
+```
+*(If you prefer to run it in the background to free up the console, add the `-d` flag: `docker-compose up --build -d`)*
+
+### 2. Access the application
+Once the services are started, they will be available at:
+- **Frontend (Angular)**: http://localhost:4200
+- **Backend API**: http://localhost:8080
+- **Swagger UI**: http://localhost:8080/swagger-ui/index.html
+- **H2 Console**: http://localhost:8080/h2-console
+
+### 3. View logs (If ran in background with -d)
+```bash
+docker-compose logs -f
 ```
 
-- **Frontend**: http://localhost:4200
-- **Backend API**: http://localhost:8080
+### 4. Stop the application
+To stop and remove containers (this will also delete the H2 in-memory data):
+```bash
+docker-compose down
+```
 
----
 
 ## ☁️ Cloud Deployment (Render)
 

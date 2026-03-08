@@ -24,7 +24,9 @@ public class CiudadClimaService {
         this.ciudadesConfiguradas = List.of(
                 new CiudadConfig("Málaga", 36.72, -4.42, "Europe/Madrid"),
                 new CiudadConfig("Milano", 45.46, 9.19, "Europe/Rome"),
-                new CiudadConfig("Cortina d'Ampezzo", 46.54, 12.14, "Europe/Rome"));
+                new CiudadConfig("Cortina d'Ampezzo", 46.54, 12.14, "Europe/Rome"),
+                new CiudadConfig("Los Villares en Jaén", 37.5856, -3.8172, "Europe/Madrid")
+        );
     }
 
     /**
